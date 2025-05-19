@@ -16,7 +16,6 @@ import random
 import time
 import pyautogui
 
-
 pygame.init()
 
 # Configuração de janela, fonte e "objetivo"
