@@ -1,15 +1,16 @@
-#Notas:
-# 1ª Fase: Cor - a) ; b)
-# 2ª Fase: Forma geometrica - 
-#     a) ; 
-#     b)
-# 3ª Fase: Número e cor - a) ; b)
-
-#Lista de formas:
-# 1 - quadrado triangulo e circulo
-# 2 - quadrado triangulo circulo retangulo e losango
-# 4 - quadrado triangulo circulo e numeros
-
+#-------------------------------------------------------
+# Direcionamento do projeto
+#-------------------------------------------------------
+# 1ª Fase: Cor 
+# Formas: quadrado triangulo e circulo
+# 2ª Fase: Forma geometrica 
+# Formas: quadrado triangulo circulo retangulo e losango
+# 3ª Fase: Número e cor 
+# Formas: quadrado triangulo circulo e numeros
+#
+# Trechos delimitados hashs serão separados em outros ar-
+# quivos
+#-------------------------------------------------------
 import pygame
 import random
 import time
@@ -18,28 +19,30 @@ import time
 pygame.init()
 WIDTH, HEIGHT = 1366, 768
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Identifque qual cor mais se repete") #Lembrar de perguntar qual forma deve ser observada
+pygame.display.set_caption("") #!
 font = pygame.font.SysFont(None, 32)
 
-## Trechos delimitados por duas hashs serão separados em outros arquivos
-# Cores, lembrar de alterar e definir
-WHITE = (255, 255, 255)
+#-------------------------------------------------------
+# Cores e formas: Devemos aumentar lista de cores
+WHITE = (255, 255, 255) # R, G, B
 RED = (255, 0, 0)
 BLACK = (0, 0, 0)
-SHAPES = [ # Lista de formas geométricas
+
+# Lista de formas geométricas
+SHAPES = [ 
     'circle', 
     'square', 
     'triangle'
 ] 
-##
+#-------------------------------------------------------
 
 # Variaveis de controle
 circle_count = square_count = triangle_count = keypress_count = 0 # Contagem inicial dos elementos
 total_shapes = 40 # Contagem de formas que irão aparecer
 shape_display_time = 1.0 #Duração que cada forma geometrica vai aparecer na tela
 
-##
-def text_screen(text): # Essa função exibe o textos, se tiver paciencia, pode ver um jeito melhor de fazer
+# Funções ----------------------------------------------
+def display_text(text): # Essa função exibe o textos, se tiver paciencia, pode ver um jeito melhor de fazer
     screen.fill(BLACK) # Isso aqui é necessário pra "apagar" as coisas que estão atras, se quiser pode alterar também
     defined_text = font.render(f"{text}", True, WHITE) # Pq esse true????
     screen.blit(defined_text, (WIDTH // 2 - defined_text.get_width() // 2, HEIGHT // 2))
@@ -63,9 +66,9 @@ def draw_shape(shape): # Padrão de desenho de formas, vou melhorar essa funçã
         ]
         pygame.draw.polygon(screen, WHITE, points, 1)
     pygame.display.flip()
-##
+#-------------------------------------------------------
 
-text_screen("Indique qual cor mais se repete") # tela inicial
+display_text("Indique qual cor mais se repete") # tela inicial
 
 for _ in range(total_shapes):
     shape = random.choice(SHAPES) #Escolhe aleatóriamente uma forma dentro do array que as define
@@ -92,5 +95,5 @@ for _ in range(total_shapes):
                     pressed = True
 
 # Tela final
-text_screen("Aperto: {keypress_count} | Círculos: {circle_count} | Quadrados: {square_count} | Triangulos: {triangle_count}")
+display_text("Aperto: {keypress_count} | Círculos: {circle_count} | Quadrados: {square_count} | Triangulos: {triangle_count}")
 pygame.quit()
