@@ -14,12 +14,16 @@
 import pygame
 import random
 import time
+import pyautogui
+
+
+pygame.init()
 
 # Configuração de janela, fonte e "objetivo"
-pygame.init()
-WIDTH, HEIGHT = 1366, 768
+screen_size = pyautogui.size() #Tuple que contem as proporções da tela utilizada
+WIDTH, HEIGHT = screen_size[0], screen_size[1]
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("") #!
+pygame.display.set_caption("Teste de Atenção") #!
 font = pygame.font.SysFont(None, 32)
 
 #-------------------------------------------------------
@@ -44,12 +48,12 @@ shape_display_time = 1.0 #Duração que cada forma geometrica vai aparecer na te
 # Funções ----------------------------------------------
 def display_text(text): # Essa função exibe o textos, se tiver paciencia, pode ver um jeito melhor de fazer
     screen.fill(BLACK) # Isso aqui é necessário pra "apagar" as coisas que estão atras, se quiser pode alterar também
-    defined_text = font.render(f"{text}", True, WHITE) # Pq esse true????
+    defined_text = font.render(text, True, WHITE) # Pq esse true????
     screen.blit(defined_text, (WIDTH // 2 - defined_text.get_width() // 2, HEIGHT // 2))
     pygame.display.flip()
     time.sleep(5)
 
-def draw_shape(shape): # Padrão de desenho de formas, vou melhorar essa função. É melhor que possamos utilizar uma função mais generalista, excluindo a necessidade de usar strings pra definir as formas
+def draw_shape(shape): # Será melhor que possamos utilizar uma função mais generalista, excluindo a necessidade de usar strings pra definir as formas
     screen.fill(BLACK)
 
     if shape == 'circle':
@@ -95,5 +99,5 @@ for _ in range(total_shapes):
                     pressed = True
 
 # Tela final
-display_text("Aperto: {keypress_count} | Círculos: {circle_count} | Quadrados: {square_count} | Triangulos: {triangle_count}")
+display_text(f"Aperto: {keypress_count} | Círculos: {circle_count} | Quadrados: {square_count} | Triangulos: {triangle_count}")
 pygame.quit()
