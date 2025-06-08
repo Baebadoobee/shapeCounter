@@ -1,3 +1,10 @@
+# Nota.: Salvar resultados em um .txt separado
+# Nota.: Ajustar seção "número e cor"
+# Nota.: Ajustar tamanho da caixa de texto
+# Nota.: Adicionar tela com o nome das cores e formas
+# Nota.: Verificar rodada de treino da terceira etapa
+# Nota.: Salvar o programa de maneira portavel
+
 import pygame
 import random
 import time
@@ -13,8 +20,8 @@ class Config:
     COLORS = {
         'vermelho': (255, 0, 0),
         'amarelo': (255, 255, 0),
-        'magenta': (255, 0, 255),
-        'ciano': (0, 255, 255),
+        'rosa': (255, 0, 255),
+        'cinza': (100, 100, 100),
         'azul': (0, 0, 255),
         'verde': (0, 255, 0),
         'branco': (255, 255, 255)
@@ -22,7 +29,7 @@ class Config:
     COLOR_NAMES = list(COLORS.keys())
     SHAPES = ['circulo', 'quadrado', 'triangulo', 'losango']
     NUMBERS = [str(i) for i in range(1, 10)]
-    FONT_SIZE = 32
+    FONT_SIZE = 60
     SHAPE_DISPLAY_TIME = 1.0
     TARGET_FPS = 60
     BLACK = (0, 0, 0)
@@ -135,7 +142,7 @@ class AttentionTest:
         
         return input_text
     
-    def draw_shape(self, shape, color_name, position, size=100):
+    def draw_shape(self, shape, color_name, position, size=50):
         color = Config.COLORS[color_name] 
         x, y = position
         position = self.get_random_position()
@@ -178,9 +185,9 @@ class AttentionTest:
                 self.draw_shape(shape, color, center)
             
             elif phase == 3:
-                if random.random() > 0.5:  # 50% chance de mostrar número
+                if random.random() > 0.7:  # 70% chance de mostrar número
                     number = random.choice(Config.NUMBERS)
-                    color = 'vermelho' if random.random() > 0.5 else random.choice(Config.COLOR_NAMES)
+                    color = 'vermelho' if random.random() > 0.7 else random.choice(Config.COLOR_NAMES)
                     self.draw_number(number, color, rand_pos)
                 else:
                     shape = random.choice(Config.SHAPES)
@@ -330,8 +337,15 @@ class AttentionTest:
 
             result_text = f"Fase 3: Você acertou {self.keypress_count} de {self.correct_presses} números azuis"
             self.display_text(result_text, duration=5)
+
+            if not self.video_player.play("media/end_screen.mp4", Config.TARGET_FPS):
+                return
+
+            if not self.video_player.play("media/credit_screen.mp4", Config.TARGET_FPS):
+                return
             
         finally:
+
             pygame.quit()
 
 if __name__ == "__main__":
