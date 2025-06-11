@@ -115,7 +115,7 @@ class AttentionTest:
     
     def input_text_screen(self, prompt):
         input_text = ""
-        input_rect = pygame.Rect(Config.WIDTH//2 - 200, Config.HEIGHT//2, 400, 50)
+        input_rect = pygame.Rect(Config.WIDTH//2 - 350, Config.HEIGHT//2 + 10, 700, 60)
         active = True
         
         while active:
@@ -185,7 +185,7 @@ class AttentionTest:
                 self.draw_shape(shape, color, center)
             
             elif phase == 3:
-                if random.random() > 0.7:  # 70% chance de mostrar número
+                if random.random() > 0.3:  # 70% chance de mostrar número
                     number = random.choice(Config.NUMBERS)
                     color = 'vermelho' if random.random() > 0.7 else random.choice(Config.COLOR_NAMES)
                     self.draw_number(number, color, rand_pos)
